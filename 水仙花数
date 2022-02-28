@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+<script type="text/javascript">
+
+// 第一种方法
+
+var num = [];
+var j = 0;
+for(var i = 100; i < 400000000; i ++){
+var iG, iS, iB;
+iG = i % 10;
+iS = parseInt(i / 10) % 10;
+iB = parseInt(i / 100);
+var sum = iG*iG*iG + iS*iS*iS + iB*iB*iB;
+if(i == sum){
+num[j] = i;
+j ++;
+}
+}
+document.write("水仙花数都有：" + "<br />");
+for(var i = 0; i < num.length; i ++){
+document.write(num[i] + "<br />");
+}
+
+// 第二种方法 把这个数当做字符串来实现
+for(var i=100;i<=999;i++)
+{
+str_i=i.toString();
+var hundred=Number(str_i.charAt(0));//运用charAt(index)函数找百位数
+var ten=Number(str_i.charAt(1));
+var dig=Number(str_i.charAt(2));
+var result=Math.pow(hundred,3)+Math.pow(ten,3)+Math.pow(dig,3);//用Math.pow(num,x)实现立方的运算
+if(result===i）//判断是否和i相等
+{
+document.write('<br />'+string+'<br />');
+}
+}
+
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
