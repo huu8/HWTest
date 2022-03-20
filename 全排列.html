@@ -1,69 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body></body>
-    <script>
-        // 回溯法
-        function getNum(n) {
-            let targetArr = [];
-            if (n < 0 || n > 8) return false;
-            for (let index = 1; index <= n; index++) {
-                targetArr.push(index);
-            }
-            let res = [];
-            dfs([]);
-            function dfs(path) {
-                if (path.length === targetArr.length) {
-                    res.push([...path]);
-                    return;
-                }
-                for (let index = 0; index < targetArr.length; index++) {
-                    if (path.includes(targetArr[index])) {
-                        continue;
-                    }
-                    path.push(targetArr[index]);
-                    dfs(path);
-                    path.pop();
-                }
-            }
 
-            return res;
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body></body>
+<script>
+    // 回溯法
+    function getNum(n) {
+        let targetArr = [];
+        if (n < 0 || n > 8) return false;
+        for (let index = 1; index <= n; index++) {
+            targetArr.push(index);
         }
-        // let result = getNum(3);
-        // console.log(result);
-        // 方法2
-        function getNum2(n) {
-            let targetArr = [];
-            if (n < 0 || n > 8) return false;
-            for (let index = 1; index <= n; index++) {
-                targetArr.push(index);
+        let res = [];
+        dfs([]);
+        function dfs(path) {
+            if (path.length === targetArr.length) {
+                res.push([...path]);
+                return;
             }
-            let res = [];
-            // 交换
-            function swap(p, q) {
-                if (p === q) return;
-                [targetArr[p], targetArr[q]] = [targetArr[q], targetArr[p]];
-            }
-            function dfs(start, end) {
-                if (start === end) {
-                    res.push([...targetArr]);
-                    return;
+            for (let index = 0; index < targetArr.length; index++) {
+                if (path.includes(targetArr[index])) {
+                    continue;
                 }
-                for (let index = start; index < end; index++) {
-                    swap(start, index);
-                    dfs(start + 1, end);
-                    swap(start, index);
-                }
+                path.push(targetArr[index]);
+                dfs(path);
+                path.pop();
             }
-            dfs(0, n);
-            return res;
         }
-        let result2 = getNum2(3);
-        console.log(result2);
-    </script>
+
+        return res;
+    }
+    // let result = getNum(3);
+    // console.log(result);
+    // 方法2
+    function getNum2(n) {
+        let targetArr = [];
+        if (n < 0 || n > 8) return false;
+        for (let index = 1; index <= n; index++) {
+            targetArr.push(index);
+        }
+        let res = [];
+        // 交换
+        function swap(p, q) {
+            if (p === q) return;
+            [targetArr[p], targetArr[q]] = [targetArr[q], targetArr[p]];
+        }
+        function dfs(start, end, count = 0) {
+            count+=1
+            let temparr = []
+            temparr.length = count
+            temparr.fill(' ')
+            console.log(temparr.join('/') + '开始-----------------------------------');
+            if (start === end) {
+                res.push([...targetArr]);
+                return;
+            }
+            for (let index = start; index < end; index++) {
+                swap(start, index);
+                console.log(targetArr, start, index, 'targetArr');
+                dfs(start + 1, end, count);
+                swap(start, index);
+            }
+            console.log(temparr.join('/') + '-----------------------------------结束');
+        }
+        dfs(0, n);
+        return res;
+    }
+    let result2 = getNum2(3);
+    console.log(result2);
+</script>
+
 </html>
