@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>大雁叫声</title>
+    </head>
+    <body>
+        <p>
+            一群大雁往南飞，给定一个字符串记录地面上的游客挺大的大雁叫声，请给出叫声最少由几只大雁发出的
+        </p>
+        <h2>输入描述</h2>
+        <p>
+            一个字符串，包含大雁quack的叫声，1<=字符串长度<=10000字符串中的字符只有quack
+        </p>
+        <h2>输出描述</h2>
+        <p>大雁的数量</p>
+    </body>
+</html>
+<script>
+    function getInput() {
+        let str = prompt();
+        let strArr = str.split("");
+        return [str, strArr];
+    }
+    function getCount() {
+        const [str, strArr] = getInput();
+        let count = 0;
+        const QUACK = ["q", "u", "a", "c", "k"];
+        while (strArr.length) {
+            let index = 0;
+            let flag = false;
+            for (let i = 0; i < strArr.length; i++) {
+                if (strArr[i] === QUACK[index]) {
+                    console.log(i,strArr,'ttt')
+                    strArr.splice(i, 1);
+                    i--;
+                    if (index === QUACK.length - 1) {
+                        index = 0;
+                        flag = true;
+                    } else {
+                        index++;
+                    }
+                }
+            }
+            if (flag) {
+                count++;
+            }else{
+                break;
+            }
+        }
+        console.log(strArr,count);
+    }
+    getCount();
+</script>
