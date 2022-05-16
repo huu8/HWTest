@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>补种未成活胡杨</title>
+    </head>
+    <body>
+        N:总种植数量 M：未成活数量 M个空格分隔的数组，编号从小到大排列
+        K:最多可以补种的数量
+    </body>
+</html>
+<script>
+    // 输入
+    function getInput() {
+        let N = +prompt();
+        let M = +prompt();
+        let strArr = prompt()
+            .split(" ")
+            .filter(Boolean)
+            .map((item) => +item);
+        let K = +prompt();
+        return [N, M, strArr, K];
+    }
+    function getResult() {
+        const [N, M, strArr, K] = getInput();
+        const originN = Array.from({ length: N }).map(
+            (item, index) => index + 1
+        );
+        // 借鉴双指针滑动窗口思想
+        let left = right = maxLen = 0;
+        let splitArr = [];
+        // 控制循环次数
+        while (right < N) {
+            // 指针变化在两支针中间重新寻找所有的坑位，记录最长的连续的数组
+            let deadNum = 0;
+            splitArr = originN.slice(left, right + 1);
+            // 判断指针中间是否包含所有的坑位
+            for (let index = 0; index < strArr.length; index++) {
+                if (splitArr.find((item) => item === strArr[index])) {
+                    deadNum++;
+                }
+            }
+            // 当坑位大于补种的数的时候，不满足条件不记录长度，指针右移，重新记录长度
+            if (deadNum > K) {
+                left++;
+            } else {
+                // 只要补种的数量大于等于坑位数量，就记录最长数组长度 并取最长
+                right++;
+                maxLen = Math.max(maxLen, splitArr.length);
+            }
+        }
+        console.log(maxLen);
+        return maxLen;
+    }
+    document.body.appendChild(document.createTextNode(getResult()));
+    // getResult();
+</script>
